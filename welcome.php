@@ -8,13 +8,37 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../css/bootstrap.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        body
+        {
+            background-color: beige;
+            
+        }
+        h1
+        {
+            font-style: italic;
+            text-align: center;
+            font-size: 50px;
+            font-weight: bolder;
+            color: rgb(23, 80, 23);
+        }
+
+        p
+        {
+            font-size: x-large;
+            font-weight: 800;
+
+            text-align: center;
+
+        }
+    </style>
+    
 </head>
 <body>
-    <div class="user-welcome">
-        <h1 class="text-center"> Welcome <?php echo$_SESSION['firstName']." ".$_SESSION['middleName']." ".$_SESSION['lastName']." ".$_SESSION['familyName']; ?> To Your Home Page! </h1>
-        <p class="text-center"> We want to remind you that your email is: <?php echo $_SESSION['email']; ?>, and your phone number is: <?php echo $_SESSION['phoneNumber']; ?> </p>
+    <div >
+        <h1 > full name <?php echo$_SESSION['firstName']." ".$_SESSION['secondname']." ".$_SESSION['thirdname']." ".$_SESSION['fourthname']; ?>  </h1>
+        <p > Your email <?php echo $_SESSION['email']; ?> </p>
+        <p> Your phone number is <?php echo $_SESSION['PhoneNumbers']; ?> </p>
     </div>
 </body>
 </html>

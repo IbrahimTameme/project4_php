@@ -31,15 +31,19 @@ if (isset($_POST['submit'])){
         }
     }
     if($loginEmail_correct && $loginPassword_correct)
+	{
         header('location:welcome.php');
+		$_SESSION["arr"][$key]["Last-Login-Date"]= date("d-m-Y - h:i:sa");
+        $_SESSION["arr"];
+	}	
     else
     echo '<script language="javascript">';
     echo 'alert("Incorrect Information")'; 
     echo '</script>';
      
     // cHeck Admin information 
-    if($_SESSION['loginEmail']=="admin@gmail.com"){
-		if($_SESSION['loginPassword']== "Admin*1234"){
+    if($_SESSION['loginEmail']=="admin"){
+		if($_SESSION['loginPassword']== "admin"){
             $loginEmail_result="<span style=' color:green'>Correct Email</span><br>";
 			$adminEmail_correct=true;
 			$adminPass_correct=true;

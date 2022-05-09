@@ -16,7 +16,7 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-image: url("./img/pexels-miriam-espacio-2694037.jpg");
+    background-image: url("https://images.unsplash.com/photo-1462332420958-a05d1e002413?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1807&q=80");
        background-size: cover;
   }
   
@@ -117,11 +117,21 @@
   {
       margin: 5%;
   }
+
+  .btns
+  {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
     </style>
 </head>
 <body>
+  <img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/5ff7df69230675.5b7a9e106f89c.gif" alt="">
+  <div class="btns">
     <a href="login.php"><button>Login </button></a>
     
    <a href="Register.php"><button class="btn1" >Register </button> </a> 
+   </div>
 </body>
 </html>

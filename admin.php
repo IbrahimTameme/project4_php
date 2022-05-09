@@ -1,6 +1,6 @@
 <?php
 session_start();
-setCookie('FirstName', date("H:i:s-m/d/y"), 60*24*60*60+time());
+// setCookie('FirstName', date("H:i:s-m/d/y"), 60*24*60*60+time());
 ?>
 
 <!DOCTYPE html>
@@ -10,8 +10,15 @@ setCookie('FirstName', date("H:i:s-m/d/y"), 60*24*60*60+time());
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome Admin</title>
-    <link rel="stylesheet" href="../css/bootstrap.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        body
+        {
+            background-color: aqua;
+
+        }
+    </style>
 </head>
 <body>
     <h1 class="text-center admin-h1"> Welcome  Admin To Your Control Page! </h1>
@@ -29,14 +36,20 @@ setCookie('FirstName', date("H:i:s-m/d/y"), 60*24*60*60+time());
             </tr>
         </thead>
         <tbody>
-            <tr class="table-primary">
-                <th scope="row"><?php echo $_SERVER['REMOTE_ADDR'] ?></th><!--User IP Address-->
-                <td><?php echo $_SESSION['firstName'] ;?> </td><!--User First Name-->
-                <td><?php echo $_SESSION['email'] ;?></td><!--User Email-->
-                <td><?php echo $_SESSION['password'] ;?></td> <!--User Password-->
-                <td><?php echo $_SESSION['date_create'] ;?></td> <!--User Date Create-->
-                <td><?php echo $_COOKIE['FirstName']; ?></td> <!--User Last Login Date-->
-            </tr>
+        <?php
+                     $id= 1;
+                     foreach ($_SESSION['sessionarr'] as $value) {
+                         echo "<tr>
+                                 <td>".$id."</td>
+                                 <td>".$value['First Name']."</td>
+                                 <td>".$value['Email']."</td>
+                                 <td>".$value['Password']."</td>
+                                 <td>".$value['when create']."</td>
+                                 <td>".$value['Last-Login-Date']."</td>
+                             </tr>";
+                         $id++;  
+                    }
+                     ?>
         </tbody>
     </table>
 </body>

@@ -4,7 +4,7 @@ session_start();
 $name_regex="/^([a-zA-Z' ]+)$/";
 $email_regex="/^[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/";
 $password_regex = "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/"; 
-
+$phoneNumber_regex="/^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})[-.\\s]?([0-9]{4})?[-.\\s]?([0-9]{4})$/";
 
 if (isset($_POST['submit'])){
 $_SESSION['firstName']=$_POST['firstname'];
@@ -14,11 +14,12 @@ $_SESSION['fourthname']=$_POST['fourthname'];
 $_SESSION['email']=$_POST['signUpEmail'];
 $_SESSION['password']=$_POST['signUpPassword'];
 $_SESSION['confirmPassword']=$_POST['signUpConfirmPassword'];
+$_SESSION['PhoneNumbers']=$_POST['phonenumber'];
 
 $_SESSION['dateOfBirth']=$_POST['DOB'];
-$_SESSION['array']=array('');
-$_SESSION['date_create']=date("Y-m-d"); //Date Create
-    // First name check
+// $_SESSION['array']=array('');
+$_SESSION['date_create']=date("Y-m-d"); //this is for Date Create
+    // this is forFirst name check
     if(preg_match($name_regex,$_SESSION['firstName'])){
         $firstName_result="<span style=' color:green'>Correct Name</span> <br>";
         $firstName_correct=true;
@@ -26,7 +27,7 @@ $_SESSION['date_create']=date("Y-m-d"); //Date Create
         $firstName_result="<span style=' color:red'>InCorrect Name</span> <br>";
         $firstName_correct=false;
     }
-    //Middle name check
+    //this is forMiddle name check
     if(preg_match($name_regex,$_SESSION['secondname'])){
         $secondname_result="<span style=' color:green'>Correct Name</span> <br>";
         $secondName_correct=true;
@@ -34,7 +35,7 @@ $_SESSION['date_create']=date("Y-m-d"); //Date Create
         $secondname_result="<span style=' color:red'>InCorrect Name</span> <br>";
         $secondName_correct=false;
     }
-       //Middle name check
+       //this is for middle name check
        if(preg_match($name_regex,$_SESSION['thirdname'])){
         $thirdname_result="<span style=' color:green'>Correct Name</span> <br>";
         $thirdname_correct=true;
@@ -42,7 +43,7 @@ $_SESSION['date_create']=date("Y-m-d"); //Date Create
         $thirdname_result="<span style=' color:red'>InCorrect Name</span> <br>";
         $thirdname_correct=false;
     }
-    //Family Name
+    //this is for family Name
     if(preg_match($name_regex,$_SESSION['fourthname'])){
         $fourthname_result="<span style=' color:green'>Correct Name</span> <br>";
         $fourthname_correct=true;
@@ -50,7 +51,7 @@ $_SESSION['date_create']=date("Y-m-d"); //Date Create
         $fourthname_result="<span style=' color:red'>InCorrect Name</span> <br>";
         $fourthname_correct=false;
     }
-    //Email
+    // this is for email
     if(preg_match($email_regex,$_SESSION['email'])){
         $email_result="<span style=' color:green'>Correct Email</span> <br>";
         $email_correct=true;
@@ -59,7 +60,16 @@ $_SESSION['date_create']=date("Y-m-d"); //Date Create
         $email_result="<span style=' color:red'>Incorrect Email</span> <br>";
         $email_correct=false;
     }
-    //Password
+    // this is for phone
+    if(preg_match($phoneNumber_regex,$_SESSION['PhoneNumbers'])){
+      $phone_result="<span style=' color:green'>Correct phonenumber</span> <br>";
+      $phone_correct=true;
+  }
+  else{
+      $phone_result="<span style=' color:red'>Incorrect phonenumber</span> <br>";
+      $phone_correct=false;
+  }
+    // this is for password
     if(preg_match($password_regex,$_SESSION['password'])){
         $password_result="<span style=' color:green'>Correct Password</span> <br>";
         $password_correct=true;
@@ -68,7 +78,10 @@ $_SESSION['date_create']=date("Y-m-d"); //Date Create
         $password_result="<span style=' color:red'>Incorrect Password, your password shoud have:<br>1- 8 characters at least<br>2- At least one uppercase English letter<br>3- At least one lowercase English letter<br>4- At least one digit<br>5- At least one special character </span> <br>";
         $paswword_correct=false;
     }
-    //Confirm Password
+
+
+
+    // this is for confirm Password
     if(preg_match($password_regex,$_SESSION['confirmPassword'])){
         if ($_SESSION['confirmPassword'] == $_SESSION['password']){
             $password_match=true;
@@ -85,8 +98,10 @@ $_SESSION['date_create']=date("Y-m-d"); //Date Create
         $confirmPassword_result="<span style=' color:red'>Incorrect Password, your password shoud have:<br>1- 8 characters at least<br>2- At least one uppercase English letter<br>3- At least one lowercase English letter<br>4- At least one digit<br>5- At least one special character </span> <br>";
         $confirmPaswword_correct=false;
     }
+
+
     
-    //Date Of Birth
+    //this is for date Of Birth
     if((floor((time() - strtotime($_SESSION['dateOfBirth'])) / 31556926)) >16){
         $dob_result="<span style=' color:green'>Your age is greater than 16</span> <br>";
         $confirmDob_correct=true;
@@ -96,22 +111,31 @@ $_SESSION['date_create']=date("Y-m-d"); //Date Create
         $dob_result="<span style=' color:red'>Your age is less than 16</span> <br>";
         $confirmDob_correct=false;
     }
+
+    $_SESSION["sessionarr"] = array ();
+    if(empty($_SESSION["sessionarr"])){
+        $_SESSION["sessionarr"]= [];
+    }
+
     if(
-        $firstName_correct && $secondName_correct && $thirdname_correct && $fourthname_correct && $email_correct && $confirmPassword_correct  && $confirmDob_correct
+        $firstName_correct && $secondName_correct && $thirdname_correct && $fourthname_correct && $email_correct && $phone_correct && $confirmPassword_correct  && $confirmDob_correct
     ){
-        $_SESSION['array']=array(
+        $dat_array=[
             'First Name'=> $_SESSION['firstName'],
             'second Name'=> $_SESSION['secondname'],
             'Last Name'=>$_SESSION['thirdname'],
             'Family Name'=> $_SESSION['fourthname'],
             'Email'=> $_SESSION['email'],
+            'Phonenumber' => $_SESSION['PhoneNumbers'],
             'Password'=> $_SESSION['password'],
             'Password Confirmation'=> $_SESSION['confirmPassword'],
-            
+            'when create' => $_SESSION['date_create'],
             'Date Of Birth'=>$_SESSION['dateOfBirth']
-        );
+        ];
+        array_push($_SESSION["sessionarr"],$dat_array);
         
         header('location:login.php');
+        exit();
     }
 }
 
@@ -187,6 +211,12 @@ $_SESSION['date_create']=date("Y-m-d"); //Date Create
                       <?php if(isset($email_result)){echo $email_result;}?>
                         <input type="text" name="signUpEmail" id="form3Example8" class="form-control form-control-lg" required />
                         <label class="form-label" for="form3Example8">E-mail</label>
+                      </div>
+
+                      <div class="form-outline mb-4">
+                      <?php if(isset($phone_result)){echo $phone_result;}?>
+                        <input type="text" name="phonenumber" id="form3Example99" class="form-control form-control-lg" required />
+                        <label class="form-label" for="form3Example99">phone number</label>
                       </div>
       
                       <!-- <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
